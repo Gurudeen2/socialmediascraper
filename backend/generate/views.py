@@ -13,11 +13,15 @@ def facebook(request):
     url ="https://facebook.com"
     browser.open(url)
     browser.select_form(nr=0)
-    browser.form['email'] = "fb username"
-    browser.form['pass'] ="fb pass"
+    browser.form['email'] = ""
+    browser.form['pass'] =""
     response = browser.submit()
-    print("fb res", response.read())
+    print("fb res", response.geturl())
 
+    browser.open(response.geturl())
+    browser.select_form(nr=0)
+    res = browser.submit()
+   
     page = urlopen(url)
     html_bytes = page.read()
     html = html_bytes.decode('utf-8')
@@ -28,4 +32,4 @@ def facebook(request):
     end_index = html.find('</title>')
     title = html[start_index:end_index]
 
-    return render(request, 'fb/fb.html', {'title':title})
+    return render(request, 'fb/fb.html', {'title':res.read()})
