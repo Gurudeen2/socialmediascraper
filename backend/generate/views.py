@@ -15,8 +15,8 @@ def facebook(request):
     # login to facebook
     browser.open(url)
     browser.select_form(nr=0)
-    browser.form['email'] = ""
-    browser.form['pass'] =""
+    browser.form['email'] = "akeem.fatai.3344"
+    browser.form['pass'] ="cyberakeem100"
     response = browser.submit()
 
     # click okay after login 
@@ -32,6 +32,14 @@ def facebook(request):
     req=browser.click_link(text="See all")
     page = browser.open(req)
     res = page.read()
+
+    browser.open(page.geturl())
+    if browser.find_link(text='See more results'):
+        extr_page = urlopen(page.geturl())
+        html_bytes = extr_page.read()
+        html = html_bytes.decode('utf-8')
+        name = html.find('<div class=cf>')
+        
     # browser.close()
 
     # click on see all to extract
